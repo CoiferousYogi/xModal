@@ -25,6 +25,10 @@
   display: grid;
   place-items: center;
 }
+
+.modal-content {
+  width: 100%;
+}
 form {
   background-color: white;
   padding: 20px;

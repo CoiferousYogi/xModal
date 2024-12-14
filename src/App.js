@@ -34,28 +34,30 @@ function App() {
         <button onClick={clickHandler}>Open Form</button>
         {isOpen && (
           <div className="modal" onClick={closeHandler}>
-            <form onSubmit={submitHandler}>
-              <h2>Fill Details</h2>
-              <div className="input-group">
-                <label htmlFor="username">Username: </label>
-                <input type="text" name="username" id="username" />
-              </div>
-              <div className="input-group">
-                <label htmlFor="email">Email Address:</label>
-                <input type="email" name="email" id="email" required />
-              </div>
-              <div className="input-group">
-                <label htmlFor="phoneNo">Phone Number:</label>
-                <input type="number" name="phoneNo" id="phone" required />
-              </div>
-              <div className="input-group">
-                <label htmlFor="dob">Date of Birth:</label>
-                <input type="date" name="dob" id="dob" />
-              </div>
-              <button type="submit" className="submit-button">
-                Submit
-              </button>
-            </form>
+            <div className="modal-content">
+              <form onSubmit={submitHandler}>
+                <h2>Fill Details</h2>
+                <div className="input-group">
+                  <label htmlFor="username">Username: </label>
+                  <input type="text" name="username" id="username" />
+                </div>
+                <div className="input-group">
+                  <label htmlFor="email">Email Address:</label>
+                  <input type="email" name="email" id="email" required />
+                </div>
+                <div className="input-group">
+                  <label htmlFor="phoneNo">Phone Number:</label>
+                  <input type="number" name="phoneNo" id="phone" required />
+                </div>
+                <div className="input-group">
+                  <label htmlFor="dob">Date of Birth:</label>
+                  <input type="date" name="dob" id="dob" />
+                </div>
+                <button type="submit" className="submit-button">
+                  Submit
+                </button>
+              </form>
+            </div>
           </div>
         )}
       </div>
