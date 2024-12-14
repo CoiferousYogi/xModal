@@ -29,11 +29,11 @@ function App() {
 
   return (
     <div className="App">
-      <div className="modal">
+      <div className="main">
         <h1>User Details Modal</h1>
         <button onClick={clickHandler}>Open Form</button>
         {isOpen && (
-          <div className="modal-content" onClick={closeHandler}>
+          <div className="modal" onClick={closeHandler}>
             <form onSubmit={submitHandler}>
               <h2>Fill Details</h2>
               <div className="input-group">
