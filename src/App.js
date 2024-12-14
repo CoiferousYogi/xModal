@@ -1,145 +1,66 @@
-import React, { useState } from "react";
+//import logo from "./logo.svg";
 import "./App.css";
-
-const FormModal = () => {
+import React, { useState } from "react";
+function App() {
   const [isOpen, setIsOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    userName: "",
-    email: "",
-    phoneNumber: "",
-    dateOfBirth: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  const clickHandler = () => {
+    setIsOpen(true);
   };
 
-  const handleSubmit = (e) => {
+  const closeHandler = (e) => {
+    console.log(e.target.className);
+    if (e.target.className === "modal-content") setIsOpen(false);
+  };
+
+  const submitHandler = (e) => {
     e.preventDefault();
-
-    const { userName, email, phoneNumber, dateOfBirth } = formData;
-
-    // checking if any field is empty
-    if (!userName) {
-      alert("Please enter a user name.");
-      return;
+    if (e.target.phoneNo.value.toString().length !== 10) {
+      alert("Invalid phone number. Please enter a 10-digit phone number.");
+    } else if (new Date(e.target.dob.value).getTime() > Date.now()) {
+      alert("Invalid date of birth. Date of birth cannot be in the future.");
+    } else {
+      e.target.username.value = "";
+      e.target.email.value = "";
+      e.target.phoneNo.value = "";
+      e.target.dob.value = "";
     }
-
-    if (!email) {
-      alert("Please enter an email address.");
-      return;
-    }
-
-    if (!phoneNumber) {
-      alert("Please enter a phone number.");
-      return;
-    }
-
-    if (!dateOfBirth) {
-      alert("Please enter a date of birth.");
-      return;
-    }
-
-    // checking the conditions of validity
-    if (!email.includes("@")) {
-      alert("Invalid email. Please check your email address.");
-      return;
-    }
-
-    if (phoneNumber.length !== 10 || isNaN(phoneNumber)) {
-      alert("**Invalid phone number. Please enter a 10-digit phone number.");
-      return;
-    }
-
-    if (new Date(dateOfBirth) > new Date()) {
-      alert(
-        "Invalid date of birth. The date of birth cannot exceed current date."
-      );
-      return;
-    }
-
-    // if all the validations pass, reset form and close the modal
-    setFormData({ userName: "", email: "", phoneNumber: "", dateOfBirth: "" });
-
-    setIsOpen(false);
+    console.log(e.target.dob.value);
   };
 
   return (
-    <div className="parentDiv">
-      <div className="headerDiv">
+    <div className="App">
+      <div className="modal">
         <h1>User Details Modal</h1>
-        <button className="formButton" onClick={() => setIsOpen(true)}>
-          Open Form
-        </button>
-      </div>
-      {isOpen && (
-        <div className="modalDiv" onClick={() => setIsOpen(false)}>
-          <div className="modalContent" onClick={(e) => e.stopPropagation()}>
-            <h3 className="modalHeader">Fill Details</h3>
-
-            <form onSubmit={handleSubmit} className="modalForm">
-              <div className="userNameDiv">
-                <label htmlFor="userName">User Name:</label>
-                <br />
-                <input
-                  type="text"
-                  id="username"
-                  name="userName"
-                  placeholder="Enter the name of the user"
-                  value={formData.userName}
-                  onChange={handleChange}
-                  required
-                ></input>
+        <button onClick={clickHandler}>Open Form</button>
+        {isOpen && (
+          <div className="modal-content" onClick={closeHandler}>
+            <form onSubmit={submitHandler}>
+              <h2>Fill Details</h2>
+              <div className="input-group">
+                <label htmlFor="username">Username: </label>
+                <input type="text" name="username" id="username" />
               </div>
-              <div className="emailDiv">
+              <div className="input-group">
                 <label htmlFor="email">Email Address:</label>
-                <br />
-                <input
-                  type="email"
-                  id="emailAddress"
-                  name="email"
-                  placeholder="Enter the email address."
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                ></input>
+                <input type="email" name="email" id="email" required />
               </div>
-              <div className="phoneNumberDiv">
-                <label htmlFor="phoneNumber">Phone Number:</label>
-                <br />
-                <input
-                  type="text"
-                  id="phone"
-                  name="phoneNumber"
-                  placeholder="Enter the phone number."
-                  value={formData.phoneNumber}
-                  onChange={handleChange}
-                  required
-                ></input>
+              <div className="input-group">
+                <label htmlFor="phoneNo">Phone Number:</label>
+                <input type="number" name="phoneNo" id="phone" required />
               </div>
-              <div className="dobDiv">
-                <label htmlFor="dateOfBirth">Date of Birth:</label>
-                <br />
-                <input
-                  type="date"
-                  id="dob"
-                  name="dateOfBirth"
-                  placeholder="DD/MM/YYYY"
-                  value={formData.dateOfBirth}
-                  onChange={handleChange}
-                  required
-                ></input>
+              <div className="input-group">
+                <label htmlFor="dob">Date of Birth:</label>
+                <input type="date" name="dob" id="dob" />
               </div>
-              <button type="submit" className="submitButton">
+              <button type="submit" className="submit-button">
                 Submit
               </button>
             </form>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
-};
+}
 
-export default FormModal;
+export default App;
